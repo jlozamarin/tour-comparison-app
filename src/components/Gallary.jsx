@@ -43,24 +43,26 @@ const Gallery = () => {
     return <p>{error}</p>;
   }
 // display the tours
-  return (
+return (
     <div className="tour-list">
-      {toursList.map((tour) => (
-        <div className="tour-card" key={tour.id}>
+      {tours.map((tour) => (
+        <div key={tour.id} className="tour-panel">
           <img src={tour.image} alt={tour.name} />
           <h2>{tour.name}</h2>
-          <p>{tour.price}</p>
+          <div className="price">${tour.price}</div>
           <p>
-            {tour.showDescription ? tour.description : `${tour.description.slice(0, 100)}...`}
+            {showFullDescription[tour.id]
+              ? tour.info
+              : `${tour.info.substring(0, 100)}...`}
           </p>
           <button onClick={() => toggleDescription(tour.id)}>
-            {tour.showDescription ? 'Show Less' : 'Read More'}
+            {showFullDescription[tour.id] ? "Show Less" : "Read More"}
           </button>
-          <button onClick={() => handleRemoveTour(tour.id)}>Not Interested</button>
+          <button onClick={() => removeTour(tour.id)}>Not Interested</button>
         </div>
       ))}
     </div>
-  );
+  );  
 };
 
 export default Gallery;

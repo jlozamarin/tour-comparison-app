@@ -1,38 +1,102 @@
-.App {
-  text-align: center;
+
+body {
+  margin: 0;
+  font-family: "Times New Roman", serif;
+  background-color: #ffe6e6; 
+  color: #333; 
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+h1, h2, button {
+  font-family: "Montserrat", sans-serif;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+header {
+  background-color: #ff6f61;
   color: white;
+  padding: 1.5rem;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.App-link {
-  color: #61dafb;
+header h1 {
+  margin: 0;
+  font-size: 2.2rem;
+  letter-spacing: 1px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.tour-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 2rem;
+}
+
+.tour-panel {
+  background: white;
+  border: 1px solid #ffd1cc; 
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 320px;
+  text-align: center;
+  padding: 1.5rem;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.tour-panel:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.tour-panel img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.tour-panel h2 {
+  font-size: 1.4rem;
+  margin-bottom: 0.5rem;
+  color: #ff6f61; 
+}
+
+.tour-panel .price {
+  font-size: 1.1rem;
+  color: #ff8a75; 
+  margin-bottom: 1rem;
+}
+
+.tour-panel p {
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.5;
+}
+
+.tour-panel button {
+  background-color: #ff6f61; 
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 0.6rem 1.2rem;
+  margin-top: 0.5rem;
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.tour-panel button:hover {
+  background-color: #ff8a75; 
+}
+
+@media (max-width: 768px) {
+  .tour-list {
+    flex-direction: column;
+    align-items: center;
   }
-  to {
-    transform: rotate(360deg);
+
+  .tour-panel {
+    width: 90%;
   }
 }
