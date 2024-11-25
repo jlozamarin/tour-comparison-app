@@ -4,7 +4,7 @@ import './App.css'; // add styling
 
 function Toolbar() {
   return (
-    <nav className="toolbar"> // add the toolbar
+    <nav className="toolbar"> 
       <button>Home</button>
       <button>About</button>
       <button>Contact</button>

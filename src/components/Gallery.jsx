@@ -46,7 +46,7 @@ const Gallery = () => {
   }
 
   if (!tours.length) {
-    return <div>Loading...</div>; // loading message
+    return <div>Loading...</div>; 
   }
 
   return (
@@ -62,7 +62,7 @@ const Gallery = () => {
           </p>
           <p>Price: ${tour.price}</p>
           <img src={tour.image} alt={tour.name} />
-          <button onClick={() => removeTour(tour.id)}>Not Interested</button> // not interested button
+          <button onClick={() => removeTour(tour.id)}>Not Interested</button> 
         </div>
       ))}
     </div>
