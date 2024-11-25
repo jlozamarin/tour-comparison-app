@@ -1,68 +1,72 @@
-import React, { useState, useEffect } from 'react'; // import the useState and useEffect hooks
+import React, { useEffect, useState } from 'react'; // add the useState and useEffect 
 
 // add the Gallery component
 const Gallery = () => {
-  const [toursList, setToursList] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [tours, setTours] = useState([]);
   const [error, setError] = useState(null);
 
-  // useEffect hook to fetch data
-  useEffect(() => {
-    const fetchTours = async () => {
-      try {
-        const response = await fetch('https://course-api.com/react-tours-project');
-        const data = await response.json();
-        setToursList(data);
-        setLoading(false);
-      } catch (error) {
-        setError('Failed to retrieve tours. Please try again later.');
-        setLoading(false);
-      }
-    };
-    fetchTours(); 
-  }, []); 
+  // fetch data
+  const fetchTours = async () => {
+    try {
+      const response = await fetch('https://www.course-api.com/react-tours-project');
+      console.log('Response status:', response.status);
 
-// togglle functionality for description
-  const toggleDescription = (id) => {
-    setToursList((prevTours) =>
-      prevTours.map((tour) =>
-        tour.id === id ? { ...tour, showDescription: !tour.showDescription } : tour
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status}`);
+      }
+      const data = await response.json(); // parse the JSON
+      console.log('Raw Response:', data); // log the raw data
+
+// set the tours
+      setTours(data);
+    } catch (error) {
+      console.error('Error retrieving data:', error); 
+      setError(error.message);
+    }
+  };
+
+  useEffect(() => { // useEffect hook to fetch data
+    fetchTours();
+  }, []);
+
+  const removeTour = (id) => { // remove tour
+    setTours(tours.filter((tour) => tour.id !== id));
+  };
+
+  const toggleReadMore = (id) => { // toggle read more
+    setTours(
+      tours.map((tour) =>
+        tour.id === id ? { ...tour, showMore: !tour.showMore } : tour
       )
     );
   };
-
-  const handleRemoveTour = (id) => {
-    setToursList(toursList.filter((tour) => tour.id !== id));
-  };
 // loading and error messages
-  if (loading) {
-    return <p>Loading tours...</p>;
+  if (error) {
+    return <div>Error: {error}</div>;
   }
 
-  if (error) {
-    return <p>{error}</p>;
+  if (!tours.length) {
+    return <div>Loading...</div>; // loading message
   }
-// display the tours
-return (
-    <div className="tour-list">
+
+  return (
+    <div>
       {tours.map((tour) => (
-        <div key={tour.id} className="tour-panel">
-          <img src={tour.image} alt={tour.name} />
+        <div key={tour.id}>
           <h2>{tour.name}</h2>
-          <div className="price">${tour.price}</div>
           <p>
-            {showFullDescription[tour.id]
-              ? tour.info
-              : `${tour.info.substring(0, 100)}...`}
+            {tour.showMore ? tour.info : `${tour.info.substring(0, 100)}...`}
+            <button onClick={() => toggleReadMore(tour.id)}>
+              {tour.showMore ? 'Show Less' : 'Read More'}
+            </button>
           </p>
-          <button onClick={() => toggleDescription(tour.id)}>
-            {showFullDescription[tour.id] ? "Show Less" : "Read More"}
-          </button>
-          <button onClick={() => removeTour(tour.id)}>Not Interested</button>
+          <p>Price: ${tour.price}</p>
+          <img src={tour.image} alt={tour.name} />
+          <button onClick={() => removeTour(tour.id)}>Not Interested</button> // not interested button
         </div>
       ))}
     </div>
-  );  
+  );
 };
 
-export default Gallery;
+export default Gallery; // export the Gallery component
